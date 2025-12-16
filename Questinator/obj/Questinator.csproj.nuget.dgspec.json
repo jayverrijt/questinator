@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/jayv/Projects/questinator/Questinator/Questinator.csproj": {}
+    "/Users/jayv/Projects/Questinator/Questinator/Questinator.csproj": {}
   },
   "projects": {
-    "/Users/jayv/Projects/questinator/Questinator/Questinator.csproj": {
+    "/Users/jayv/Projects/Questinator/Questinator/Questinator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/jayv/Projects/questinator/Questinator/Questinator.csproj",
+        "projectUniqueName": "/Users/jayv/Projects/Questinator/Questinator/Questinator.csproj",
         "projectName": "Questinator",
-        "projectPath": "/Users/jayv/Projects/questinator/Questinator/Questinator.csproj",
+        "projectPath": "/Users/jayv/Projects/Questinator/Questinator/Questinator.csproj",
         "packagesPath": "/Users/jayv/.nuget/packages/",
-        "outputPath": "/Users/jayv/Projects/questinator/Questinator/obj/",
+        "outputPath": "/Users/jayv/Projects/Questinator/Questinator/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/jayv/.nuget/NuGet/NuGet.Config"
@@ -37,11 +37,44 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.1, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -61,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.416/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/Users/jayv/.dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

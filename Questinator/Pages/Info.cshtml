@@ -1,0 +1,83 @@
+@page
+@model Questinator.Pages.Info
+@{
+    Layout = null;
+    ViewData["Title"] = "Info - Questinator";
+}
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Questinator</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/info.css"/>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Hero / Header -->
+    <header class="py-5 text-center bg-gradient hero-header">
+        <div class="container">
+            <h1 class="display-4 fw-bold fade-in">Welkom bij Questinator!</h1>
+            <p class="lead fade-in" style="animation-delay: 0.2s;">
+                Questinator is jouw ultieme platform om uitdagende vragen, opdrachten en quests te ontdekken en te delen.
+            </p>
+            <p class="fade-in" style="animation-delay: 0.4s;">Om alle functies te gebruiken, log in of registreer je gratis.</p>
+            <div class="d-flex justify-content-center gap-3 mt-4 fade-in" style="animation-delay: 0.6s;">
+                <a class="btn btn-primary btn-lg" href="/Identity/Account/Login">Login</a>
+                <a class="btn btn-outline-light btn-lg" href="/Identity/Account/Register">Register</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="container my-5 flex-grow-1">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.2s;">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Ontdek Quests</h5>
+                        <p class="card-text">Blader door een gevarieerd aanbod van uitdagingen, opdrachten en mini-games om je skills te testen.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.4s;">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Deel jouw kennis</h5>
+                        <p class="card-text">Maak eigen quests en opdrachten en deel ze met de Questinator-community.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4 fade-in" style="animation-delay: 0.6s;">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Volg je progressie</h5>
+                        <p class="card-text">Volg je prestaties en ontdek hoe je groeit terwijl je nieuwe uitdagingen voltooit.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="text-center my-5 fade-in" style="animation-delay: 0.8s;">
+        <h3 class="fw-bold">Begin vandaag nog met Questinator!</h3>
+        <p class="lead">Maak een account en ontdek alles wat Questinator te bieden heeft.</p>
+        <a class="btn btn-success btn-lg" href="/Identity/Account/Register">Registreren</a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 bg-dark text-light mt-auto">
+        <div class="container text-center">
+            © 2025 Questinator - <a href="/Privacy" class="text-light">Privacy</a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>

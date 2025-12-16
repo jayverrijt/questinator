@@ -1,19 +1,28 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Questinator.Pages;
-
-public class IndexModel : PageModel
+namespace Questinator.Pages
 {
-    private readonly ILogger<IndexModel> _logger;
-
-    public IndexModel(ILogger<IndexModel> logger)
+    [Authorize] // 🔒 Alleen ingelogde users
+    public class IndexModel : PageModel
     {
-        _logger = logger;
-    }
+        private readonly ILogger<IndexModel> _logger;
 
-    public void OnGet()
-    {
+        public IndexModel(ILogger<IndexModel> logger)
+        {
+            _logger = logger;
+        }
 
+        public IActionResult OnGet()
+        {
+            // Extra check, voor het geval Authorize niet werkt
+            if (!User.Identity!.IsAuthenticated)
+            {
+                return RedirectToPage("/Info"); // stuur niet-ingelogde users naar /Info
+            }
+
+            return Page();
+        }
     }
 }

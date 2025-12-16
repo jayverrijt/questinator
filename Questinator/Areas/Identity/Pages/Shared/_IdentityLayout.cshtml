@@ -1,0 +1,29 @@
+@* Questinator Identity Layout Dark Mode *@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Questinator</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Eigen styling -->
+    <link rel="stylesheet" href="~/css/info.css" />
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+@RenderBody()
+
+<!-- Sticky Footer -->
+<footer class="py-4 bg-dark text-light mt-auto">
+    <div class="container text-center">
+        © 2025 Questinator - <a href="/Privacy" class="text-light">Privacy</a>
+    </div>
+</footer>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
