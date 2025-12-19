@@ -2,6 +2,7 @@
 @model LoginModel
 @{
     Layout = "_IdentityLayout";
+    ViewData["Title"] = "Login - Questinator";
 }
 
 <body class="d-flex flex-column min-vh-100">
@@ -20,7 +21,7 @@
     <section class="container my-5 flex-grow-1">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card p-4 shadow-sm fade-in" style="animation-delay:0.4s;">
+                <div class="card p-4 fade-in" style="animation-delay:0.4s;">
                     <div class="card-body">
                         <form method="post">
                             <div asp-validation-summary="All" class="text-danger mb-3"></div>

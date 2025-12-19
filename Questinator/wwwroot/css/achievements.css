@@ -1,0 +1,29 @@
+/* Algemene retro lijst styling */
+.retro-list {
+    font-family: 'Press Start 2P', cursive;
+    list-style: none;
+    padding: 0;
+}
+
+.retro-item {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+    border: 2px solid #444;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.retro-item:hover {
+    transform: scale(1.02);
+    background-color: #2a2a2a;
+}
+
+h2, h4 {
+    font-family: 'Press Start 2P', cursive;
+}
+
+p {
+    font-family: 'Press Start 2P', cursive;
+}

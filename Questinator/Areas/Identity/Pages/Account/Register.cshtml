@@ -2,6 +2,7 @@
 @model RegisterModel
 @{
     Layout = "_IdentityLayout";
+    ViewData["Title"] = "Registreren - Questinator";
 }
 
 <body class="d-flex flex-column min-vh-100">
@@ -20,23 +21,33 @@
     <section class="container my-5 flex-grow-1">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <div class="card p-4 shadow-sm fade-in" style="animation-delay:0.4s;">
+                <div class="card p-4 fade-in" style="animation-delay:0.4s;">
                     <div class="card-body">
                         <form method="post">
                             <div asp-validation-summary="All" class="text-danger mb-3"></div>
 
+                            <!-- Username -->
+                            <div class="mb-3">
+                                <label asp-for="Input.DisplayName" class="form-label"></label>
+                                <input asp-for="Input.DisplayName" class="form-control"/>
+                                <span asp-validation-for="Input.DisplayName" class="text-danger"></span>
+                            </div>
+
+                            <!-- Email -->
                             <div class="mb-3">
                                 <label asp-for="Input.Email" class="form-label"></label>
                                 <input asp-for="Input.Email" class="form-control"/>
                                 <span asp-validation-for="Input.Email" class="text-danger"></span>
                             </div>
 
+                            <!-- Password -->
                             <div class="mb-3">
                                 <label asp-for="Input.Password" class="form-label"></label>
                                 <input asp-for="Input.Password" class="form-control"/>
                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
                             </div>
 
+                            <!-- Confirm Password -->
                             <div class="mb-3">
                                 <label asp-for="Input.ConfirmPassword" class="form-label"></label>
                                 <input asp-for="Input.ConfirmPassword" class="form-control"/>

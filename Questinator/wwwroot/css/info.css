@@ -1,123 +1,152 @@
-/* Body dark mode */
+/* =========================
+   Body dark retro style
+   ========================= */
 html, body {
-    background-color: #121212;
-    color: #f1f1f1;
+    background-color: #101010;
+    color: #e0e0e0;
+    font-family: 'Press Start 2P', monospace; /* pixel font */
 }
 
-/* Hero header */
-.hero-header {
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-    border-radius: 1rem;
-    padding: 6rem 2rem;
+/* =========================
+   Hero header retro
+   ========================= */
+.hero-header-retro {
+    background-color: #181818;
+    border-bottom: 2px solid #444;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.hero-header-retro h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fffb00; /* retro yellow accent */
+}
+
+.hero-header-retro p {
+    font-size: 1.1rem;
+    color: #aaa;
+}
+
+/* =========================
+   Buttons retro
+   ========================= */
+.btn-primary, .btn-success, .btn-outline-light {
+    border-radius: 0;
+    border: 2px solid transparent;
+    font-weight: bold;
+    transition: all 0.1s linear;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.btn-primary {
+    background-color: #1e90ff; /* bright blue */
+    color: #fff;
+    border-color: #1e90ff;
+}
+
+.btn-primary:hover {
+    background-color: #0f65b3;
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background-color: #00cc44; /* bright green */
+    color: #fff;
+    border-color: #00cc44;
+}
+
+.btn-success:hover {
+    background-color: #009933;
+    transform: translateY(-1px);
+}
+
+.btn-outline-light {
+    background-color: transparent;
+    color: #fff;
+    border-color: #fff;
+}
+
+.btn-outline-light:hover {
+    background-color: #222;
+    color: #fff;
+    border-color: #fff;
+}
+
+/* =========================
+   Cards flat retro
+   ========================= */
+.card {
+    background-color: #1a1a1a;
+    border: 1px solid #555;
+    border-radius: 0;
+    padding: 1.25rem;
+    transition: transform 0.1s linear;
+    font-family: 'Press Start 2P', monospace;
+}
+.card p {
     color: #fff;
 }
-
-/* Cards dark mode */
-.card {
-    background-color: #1e1e1e;
-    color: #ffffff;
-    border: none;
-    border-radius: 0.75rem;
+.card-title {
+    color: darkgreen;
 }
 
-/* Form inputs dark mode */
+.card:hover {
+    transform: translateY(-2px);
+    border-color: #888;
+}
+
+/* =========================
+   Form inputs retro
+   ========================= */
 .form-control {
-    background-color: #1e1e1e;
-    color: #f1f1f1;
-    border: 1px solid #444;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    border-radius: 0;
+    font-family: 'Press Start 2P', monospace;
 }
+
 .form-control:focus {
-    border-color: #2575fc;
-    box-shadow: 0 0 0 0.2rem rgba(37,117,252,0.25);
+    border-color: #1e90ff;
+    outline: none;
+    box-shadow: none;
 }
 
 /* Labels & links */
 label, .form-label, .text-danger {
-    color: #f1f1f1 !important;
+    color: #e0e0e0 !important;
 }
+
 a {
-    color: #2575fc;
+    color: #ffcc00; /* bright yellow */
 }
+
 a:hover {
-    color: #1b5ed3;
+    color: #ffaa00;
 }
-/* Hero header spotlight */
-.hero-header-spotlight {
-    position: relative;
-    background-color: #121212; /* dark mode background */
-    border-radius: 1rem;
-    padding: 6rem 2rem 3rem 2rem; /* minder bottom padding */
-    color: #fff;
+
+/* =========================
+   Fade-in animations
+   ========================= */
+.fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(5px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================
+   Footer retro
+   ========================= */
+.footer-retro {
+    background-color: #181818;
+    color: #ccc;
+    border-top: 2px solid #444;
+    padding: 1rem 0;
     text-align: center;
-    overflow: hidden;
-    margin-bottom: -3rem; /* header overlapt subtiel de form */
-}
-
-/* Spotlight / glow van boven */
-.hero-header-spotlight::before {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: 50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at top, rgba(255,255,255,0.25), transparent 70%);
-    transform: translateX(-50%);
-    pointer-events: none;
-}
-
-/* Fade-in animaties */
-.fade-in {
-    opacity: 0;
-    animation: fadeInUp 1s forwards;
-}
-
-@keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-/* Form card overlap effect */
-.card {
-    background-color: #1e1e1e;
-    color: #fff;
-    border: none;
-    border-radius: 0.75rem;
-    transition: transform 0.3s, box-shadow 0.3s;
-    padding: 1.5rem;
-    margin-top: -3rem; /* trekt de card iets omhoog over de header */
-    z-index: 1;
-    position: relative;
-}
-
-
-/* Buttons */
-.btn-primary {
-    background-color: #2575fc;
-    border-color: #2575fc;
-    transition: transform 0.2s;
-}
-.btn-primary:hover {
-    transform: scale(1.05);
-    background-color: #1b5ed3;
-    border-color: #1b5ed3;
-}
-.btn-success {
-    background-color: #28a745;
-    border-color: #28a745;
-}
-.btn-success:hover {
-    transform: scale(1.05);
-    background-color: #1e7e34;
-    border-color: #1e7e34;
-}
-
-/* Fade-in animaties */
-.fade-in {
-    opacity: 0;
-    animation: fadeInUp 1s forwards;
-}
-@keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(30px); }
-    100% { opacity: 1; transform: translateY(0); }
+    font-family: 'Press Start 2P', monospace;
 }

@@ -43,13 +43,13 @@ builder.Services.ConfigureApplicationCookie(options =>
 builder.Services.AddRazorPages(options =>
 {
     // 🔒 Alle pagina’s vereisen login
-    options.Conventions.AuthorizeFolder("/");
+ //   options.Conventions.AuthorizeFolder("/");
 
-    // 🔓 Publieke pagina’s
-    options.Conventions.AllowAnonymousToPage("/Info");
+ //   // 🔓 Publieke pagina’s
+ //   options.Conventions.AllowAnonymousToPage("/Info");
 
-    // 🔓 Identity (Login/Register/Logout/Manage)
-    options.Conventions.AllowAnonymousToAreaFolder("Identity", "/");
+ //   // 🔓 Identity (Login/Register/Logout/Manage)
+ //   options.Conventions.AllowAnonymousToAreaFolder("Identity", "/");
 });
 
 var app = builder.Build();

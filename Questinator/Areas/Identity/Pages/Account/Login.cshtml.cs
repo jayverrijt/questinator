@@ -140,7 +140,7 @@ namespace Questinator.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Verkeerde email of wachtwoord kut!");
                     return Page();
                 }
             }

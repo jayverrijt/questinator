@@ -1,0 +1,134 @@
+@page
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
+@model Questinator.Pages.QuestsModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Mijn Quests";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div class="row mt-4">
+    <!-- Completed Quests -->
+    <div class="col-md-6">
+        <h4>Behaalde Quests</h4>
+        @if (Model.CompletedQuests.Any())
+        {
+            <ul class="list-group retro-list">
+                @foreach (var q in Model.CompletedQuests)
+                {
+                    <li class="list-group-item retro-item">
+                        <strong>@q.QuestName</strong> - @q.Description
+                        <br />
+                        <span style="color: darkred">Reward: @q.Price coins</span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Je hebt nog geen quests voltooid.</p>
+        }
+    </div>
+
+    <!-- Ongoing Quests -->
+    <div class="col-md-6">
+        <h4>Lopende Quests</h4>
+        @if (Model.OngoingQuests.Any())
+        {
+            <ul class="list-group retro-list">
+                @foreach (var q in Model.OngoingQuests)
+                {
+                    <li class="list-group-item retro-item d-flex justify-content-between align-items-start @(q.IsSkipped ? "skipped-quest" : "")">
+                        <div>
+                            <strong>@q.QuestName</strong> - @q.Description
+                            <br />
+                            @if (!string.IsNullOrEmpty(q.Amount))
+                            {
+                                <span>@q.Amount</span><br />
+                            }
+                            @if (q.IsSkipped)
+                            {
+                                <span style="color: white; font-size: 0.6rem">
+                                    @(q.IsSkipped ? "Heeft 75 coins betaald voor te skippen (loser)" : $"Reward: {q.Price} coins")
+                                </span>
+                            }
+                            @if (!q.IsSkipped)
+                            {
+                                <span style="color: black; font-size: 0.6rem">
+                                    @(q.IsSkipped ? "Heeft 75 coins betaald voor te skippen (loser)" : $"Reward: {q.Price} coins")
+                                </span>
+                            }
+
+                            @if (q.IsSkipped)
+                            {
+                                <div class="skipped-text mt-1">SKIPPED</div>
+                            }
+                        </div>
+                        @if (!q.IsSkipped)
+                        {
+                            <button class="btn btn-sm btn-warning skip-btn" data-quest-id="@q.Id">Skip</button>
+                        }
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Je hebt momenteel geen actieve quests.</p>
+        }
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="skipModal" tabindex="-1" aria-labelledby="skipModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content retro-item p-3">
+      <div class="modal-header">
+        <h5 class="modal-title" id="skipModalLabel">Bevestig Skip</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Weet je zeker dat je deze quest wilt skippen? Dit kost 75 coins.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
+        <button type="button" class="btn btn-danger" id="confirmSkipBtn">Ja, skip</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="~/css/quest.css" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+@section Scripts {
+    <script>
+        let selectedQuestId = null;
+
+        document.querySelectorAll('.skip-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectedQuestId = btn.getAttribute('data-quest-id');
+                var skipModal = new bootstrap.Modal(document.getElementById('skipModal'));
+                skipModal.show();
+            });
+        });
+
+        document.getElementById('confirmSkipBtn').addEventListener('click', async () => {
+            if (!selectedQuestId) return;
+
+            const response = await fetch('/Quests/SkipQuest', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ questId: selectedQuestId })
+            });
+
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert('Er is iets misgegaan bij het skippen van de quest.');
+            }
+        });
+    </script>
+}

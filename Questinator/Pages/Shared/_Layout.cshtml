@@ -2,9 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject UserManager<ApplicationUser> UserManager
 
-
 @functions {
-    // Helper om huidige gebruiker op te halen
     public async Task<ApplicationUser?> GetCurrentUserAsync()
     {
         if (User.Identity?.IsAuthenticated ?? false)
@@ -16,81 +14,104 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Questinator</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Questinator.styles.css" asp-append-version="true" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MmbU9B0o/nfE4kCJ34Opd/Tq/Y+2n/TQaw0B37K3+rb6v91R0JwBBfZhE+Vvj3cJ" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kiXH+FqZpLZ2p1Ex0tPj2x3pQoQpB7t6Dk5aPfVf9+zwDHL3Q73kpXc0d6WjFQJ2" crossorigin="anonymous"></script>
-
-
+    <link rel="stylesheet" href="~/css/navbar.css" />
+    <link rel="stylesheet" href="~/css/info.css" />
+    <link rel="stylesheet" href="~/css/quest.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
+
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <nav class="navbar navbar-expand-sm navbar-custom mb-3">
         <div class="container">
             <a class="navbar-brand" asp-area="" asp-page="/Index">Questinator</a>
-
-            <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target=".navbar-collapse"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Home" ? "active" : "")" asp-area="" asp-page="/Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Quests" ? "active" : "")" asp-area="" asp-page="/Quests">Quests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Achievements" ? "active" : "")" asp-area="" asp-page="/Achievements">Achievements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["ActivePage"]?.ToString() == "Store" ? "active" : "")" asp-area="" asp-page="/Store">Store</a>
                     </li>
                 </ul>
 
-                <!-- 👤 Gebruiker + Login -->
-                <div class="d-flex align-items-center gap-3">
+                <!-- User section -->
+                <div class="d-flex align-items-center gap-2">
                     @{
                         var currentUser = await GetCurrentUserAsync();
                     }
 
                     @if (currentUser != null)
                     {
-                        <span class="navbar-text text-dark">
-                            Welkom @currentUser.UserName
-                        </span>
+                        <div class="dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="navbar-initials">@currentUser.DisplayName?.Substring(0,1).ToUpper()</div>
+                                <span>@currentUser.DisplayName</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Coins">
+                                        Coins: <strong>@currentUser.Coins</strong>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Instellingen</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-page="/Profile">Profiel</a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form method="post" asp-area="Identity" asp-page="/Account/Logout">
+                                        <button type="submit" class="dropdown-item btn btn-link">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     }
-
-                    <partial name="_LoginPartial" />
+                    else
+                    {
+                        <partial name="_LoginPartial" />
+                    }
                 </div>
             </div>
         </div>
     </nav>
 </header>
 
-<div class="container">
+<div class="container flex-grow-1">
     <main role="main" class="pb-3">
         @RenderBody()
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
+<footer class="border-top footer text-muted mt-auto">
     <div class="container">
-        &copy; 2025 - Questinator -
-        <a asp-area="" asp-page="/Privacy">Privacy</a>
+        &copy; 2025 Questinator - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        <a href="https://youtu.be/xvFZjo5PgG0">Ik hoop je gerickrolled wordt!</a> -
+        <a href="https://www.google.com/search?sca_esv=c863d9d6609f0e68&sxsrf=AE3TifMdESQTuiNJjT8ekM92jqGRjcXk6A:1766054001468&udm=2&fbs=AIIjpHw2KGh6wpocn18KLjPMw8n5ofjZQFej7XxDpLEwzn5636jPhZQ2SCHYNZOTHhCqX-lIANdm34OLsXpljMXvur-qOVxvA3NXiaKxlYQy-RRiasLGkzd4zqCUc8t8vI2F-h1nJA1utTYvqu2kpTmHUtQ7kaUGVvJcbPCfc9Trwsl4hdZsOuhb1DwK7z1ZfvqQTYc6nJeD&q=fijne+feestdagen+kaartje+met+een+middelvinger&sa=X&ved=2ahUKEwjGrqXr98aRAxX40wIHHU-ZAN0QtKgLegQIGhAB&biw=1920&bih=934&dpr=1#sv=CAMSVhoyKhBlLWNvSmczZno4aEt4ckRNMg5jb0pnM2Z6OGhLeHJETToOcDY4NTZrcjVLZ2JfdU0gBCocCgZtb3NhaWMSEGUtY29KZzNmejhoS3hyRE0YADABGAcg6tP3lwYwAkoKCAEQAhgCIAIoAg">Fijne feestdagen</a>
     </div>
 </footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="~/js/site.js" asp-append-version="true"></script>
-
 @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

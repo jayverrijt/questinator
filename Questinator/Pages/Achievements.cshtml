@@ -1,0 +1,34 @@
+@page
+@model Questinator.Pages.AchievementsModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Mijn Achievements";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h4>Behaalde Achievements</h4>
+        @if (Model.Achievements.Any())
+        {
+            <ul class="list-group retro-list">
+                @foreach (var a in Model.Achievements)
+                {
+                    <li class="list-group-item retro-item">
+                        <strong>@a.Name</strong> - @a.Description
+                        <br />
+                        <span style="color: darkred">Quest: @a.QuestName</span>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Je hebt nog geen achievements behaald.</p>
+        }
+    </div>
+</div>
+
+<link rel="stylesheet" href="~/css/achievements.css" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
