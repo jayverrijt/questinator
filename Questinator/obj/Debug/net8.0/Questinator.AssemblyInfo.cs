@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Questinator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17c446d079a14e6cac9b49fef8805bc225977af3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e0c47c8142443b5a5fa332abcd26bf9c22686f3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Questinator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Questinator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

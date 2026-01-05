@@ -1,11 +1,86 @@
 ﻿@page
-@model IndexModel
+@model Questinator.Pages.IndexModel
+
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5 text-center">
+
+    <!-- Titel -->
+    <h1 class="retro-title mb-3">
+        🎮 Questinator Dashboard
+    </h1>
+
+    <p class="mb-4">
+        Welkom terug, avonturier.<br />
+        Start het spel of beheer je voortgang.
+    </p>
+
+    <!-- PLAY BUTTON -->
+    <form method="post" class="mb-5">
+        <button type="submit"
+                asp-page-handler="StartGame"
+                class="btn btn-success play-button">
+            ▶ START GAME
+        </button>
+    </form>
+
+    <!-- DASHBOARD SECTIONS -->
+    <div class="row justify-content-center">
+
+        <!-- Achievements -->
+        <div class="col-md-4 mb-4">
+            <div class="card retro-item h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🏆 Achievements</h5>
+                    <p class="card-text">
+                        Bekijk je behaalde prestaties en doelen.
+                    </p>
+                    <a asp-page="/Achievements" class="btn btn-danger">
+                        Open
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Store -->
+        <div class="col-md-4 mb-4">
+            <div class="card retro-item h-100">
+                <div class="card-body">
+                    <h5 class="card-title">🛒 Store</h5>
+                    <p class="card-text">
+                        Koop upgrades en power-ups voor je avontuur.
+                    </p>
+                    <a asp-page="/Store" class="btn btn-danger">
+                        Naar Store
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile -->
+        <div class="col-md-4 mb-4">
+            <div class="card retro-item h-100">
+                <div class="card-body">
+                    <h5 class="card-title">👤 Profiel</h5>
+                    <p class="card-text">
+                        Beheer je account en instellingen.
+                    </p>
+                    <a asp-page="/Account/Manage/Index" class="btn btn-danger">
+                        Profiel
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
+
+<!-- RETRO STYLING -->
+<link rel="stylesheet" href="~/css/achievements.css" />
+<link rel="stylesheet" href="~/css/dashboard.css" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+

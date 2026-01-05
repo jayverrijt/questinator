@@ -14,6 +14,8 @@ namespace Questinator.Data
         }
         public DbSet<Quest> Quests { get; set; }
         public DbSet<Achievement> Achievements { get; set; }
+        public DbSet<StoreItem> StoreItems { get; set; }
+        public DbSet<CoinTransaction> CoinTransactions { get; set; }
 
     }
 }

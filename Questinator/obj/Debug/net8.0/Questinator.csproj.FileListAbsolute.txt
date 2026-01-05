@@ -280,6 +280,13 @@
 /Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll
 /Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll
 /Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Runtime.Caching.dll
+/Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.dll
+/Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+/Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Microsoft.Extensions.Http.dll
+/Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Microsoft.Extensions.Http.Polly.dll
+/Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Mollie.Api.dll
+/Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Polly.dll
+/Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Polly.Extensions.Http.dll
 /Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Questinator.staticwebassets.endpoints.json
 /Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/rpswa.dswa.cache.json
 /Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/rjimswa.dswa.cache.json

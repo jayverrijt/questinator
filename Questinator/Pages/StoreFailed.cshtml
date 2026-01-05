@@ -1,0 +1,18 @@
+@page
+@model Questinator.Pages.StoreFailedModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Betaling geannuleerd";
+}
+
+<h2>❌ Betaling niet voltooid</h2>
+
+<p>
+    De betaling is geannuleerd of mislukt.<br />
+    Je kunt het opnieuw proberen in de store.
+</p>
+
+<a asp-page="/Store" class="btn btn-secondary mt-3">
+    Terug naar Store
+</a>

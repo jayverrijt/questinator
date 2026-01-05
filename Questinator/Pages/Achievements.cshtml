@@ -10,15 +10,22 @@
 <div class="row mt-4">
     <div class="col-md-12">
         <h4>Behaalde Achievements</h4>
+
         @if (Model.Achievements.Any())
         {
             <ul class="list-group retro-list">
                 @foreach (var a in Model.Achievements)
                 {
                     <li class="list-group-item retro-item">
-                        <strong>@a.Name</strong> - @a.Description
-                        <br />
-                        <span style="color: darkred">Quest: @a.QuestName</span>
+                        <strong>@a.Text</strong>
+
+                        @if (a.FromQuest != null)
+                        {
+                            <br />
+                            <span style="color: darkred">
+                                Quest ID: @a.FromQuest
+                            </span>
+                        }
                     </li>
                 }
             </ul>

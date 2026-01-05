@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace Questinator.Pages
 {
-    [Authorize] // 🔒 Alleen ingelogde users
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
@@ -16,13 +17,34 @@ namespace Questinator.Pages
 
         public IActionResult OnGet()
         {
-            // Extra check, voor het geval Authorize niet werkt
             if (!User.Identity!.IsAuthenticated)
             {
-                return RedirectToPage("/Info"); // stuur niet-ingelogde users naar /Info
+                return RedirectToPage("/Info");
             }
 
             return Page();
+        }
+
+        // 🎮 START GAME
+        public IActionResult OnPostStartGame()
+        {
+            // ✅ UserId ophalen uit Identity
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            // 🔮 HIER KOMT STRAKS DE API VAN JE COLLEGA
+            //
+            // Voorbeeld (API call):
+            // await _gameApi.StartGame(userId);
+
+            // Voor nu: redirect met userId (mock)
+            var gameUrl = $"https://example-game-url.com/start?userId={userId}";
+
+            return Redirect(gameUrl);
         }
     }
 }

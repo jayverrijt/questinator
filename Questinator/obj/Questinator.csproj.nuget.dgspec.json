@@ -73,6 +73,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.22, )"
+            },
+            "Mollie.Api": {
+              "target": "Package",
+              "version": "[4.16.0, )"
             }
           },
           "imports": [

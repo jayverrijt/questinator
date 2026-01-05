@@ -5,15 +5,14 @@ namespace Questinator.Models
 {
     public class Achievement
     {
-        [Key]
         public int Id { get; set; }
 
-        [Required]
-        public string UserId { get; set; } // foreign key naar ApplicationUser
+        public string UserId { get; set; }
 
-        public int? FromQuest { get; set; } // kan NULL zijn, refereert naar quest ID
+        public int? FromQuest { get; set; }
 
-        [Required]
         public string AchievementText { get; set; }
     }
+
+
 }

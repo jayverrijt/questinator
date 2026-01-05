@@ -1,0 +1,24 @@
+.retro-title {
+    font-family: 'Press Start 2P', cursive;
+}
+
+.play-button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.1rem;
+    padding: 18px 40px;
+    border-radius: 14px;
+    box-shadow: 0 0 18px rgba(0, 255, 0, 0.8);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 26px rgba(0, 255, 0, 1);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+    }
+}
