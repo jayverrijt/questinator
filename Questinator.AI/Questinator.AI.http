@@ -1,0 +1,6 @@
+@Questinator.AI_HostAddress = http://localhost:5076
+
+GET {{Questinator.AI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
