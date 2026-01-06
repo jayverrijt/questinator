@@ -80,3 +80,8 @@
 /Users/jayv/Projects/questinator-ai/Questinator.AI/obj/Debug/net8.0/staticwebassets.build.json.cache
 /Users/jayv/Projects/questinator-ai/Questinator.AI/obj/Debug/net8.0/staticwebassets.build.endpoints.json
 /Users/jayv/Projects/questinator-ai/Questinator.AI/obj/Debug/net8.0/swae.build.ex.cache
+/Users/jayv/Projects/questinator-ai/Questinator.AI/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/jayv/Projects/questinator-ai/Questinator.AI/bin/Debug/net8.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/jayv/Projects/questinator-ai/Questinator.AI/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/jayv/Projects/questinator-ai/Questinator.AI/bin/Debug/net8.0/Microsoft.Extensions.Identity.Core.dll
+/Users/jayv/Projects/questinator-ai/Questinator.AI/bin/Debug/net8.0/Microsoft.Extensions.Identity.Stores.dll
