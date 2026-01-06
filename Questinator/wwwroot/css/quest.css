@@ -1,14 +1,26 @@
-/* Pixel retro look */
+/* ===============================
+   Pixel Retro Look – Quests
+   =============================== */
+
 body {
     font-family: 'Press Start 2P', cursive;
     background-color: #222;
     color: #fff;
 }
+
+/* ===============================
+   Quest Lists
+   =============================== */
+
 .retro-list {
     list-style: none;
     padding: 0;
     font-family: 'Press Start 2P', cursive;
 }
+
+/* ===============================
+   Quest Item (default)
+   =============================== */
 
 .retro-item {
     background-color: #f0f0f0;
@@ -18,19 +30,34 @@ body {
     color: #000;
 }
 
+/* ===============================
+   Skipped Quest Styling
+   =============================== */
+
 .retro-item.skipped-quest {
-    background-color: #8B0000;
-    color: #fff;
+    background-color: #8B0000;      /* Donker rood */
+    color: #ffffff;
+    border: 2px solid #ff0000;
 }
+
+/* ===============================
+   Skip Button
+   =============================== */
 
 .skip-btn {
     font-size: 8px;
-    padding: 2px 5px;
+    padding: 4px 6px;
     cursor: pointer;
 }
 
+/* ===============================
+   SKIPPED Label
+   =============================== */
+
 .skipped-text {
+    margin-top: 6px;
     font-size: 10px;
-    color: yellow;
+    color: #FFD700;                 /* Geel / goud */
     font-weight: bold;
+    text-shadow: 0 0 6px rgba(255, 215, 0, 0.9);
 }

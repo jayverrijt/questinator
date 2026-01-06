@@ -206,8 +206,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3RvcmVGYWlsZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/jayv/Projects/Questinator/Questinator/Pages/StoreSucces.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3RvcmVTdWNjZXMuY3NodG1s
+[/Users/jayv/Projects/Questinator/Questinator/Pages/StoreSuccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU3RvcmVTdWNjZXNzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/jayv/Projects/Questinator/Questinator/Pages/_ViewImports.cshtml]

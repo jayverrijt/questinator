@@ -36,28 +36,65 @@ namespace Questinator.Pages
             OngoingQuests = quests.Where(q => q.Status == 1 || q.IsSkipped).ToList();
         }
 
+        // 🔥 SKIP QUEST + COINS + TRANSACTION
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> OnPostSkipQuest([FromBody] SkipQuestRequest request)
         {
             var user = await _userManager.GetUserAsync(User);
-            if (user == null) return Unauthorized();
+            if (user == null)
+                return Unauthorized();
 
             var quest = await _context.Quests
-                .Where(q => q.Id == request.QuestId && q.UserId == user.Id)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(q => q.Id == request.QuestId && q.UserId == user.Id);
 
-            if (quest == null || quest.IsSkipped) return BadRequest();
+            if (quest == null || quest.IsSkipped)
+                return BadRequest();
 
-            // Mark as skipped and charge coins
+            const int skipCost = 75;
+
+            // ❌ Niet genoeg coins
+            if (user.Coins < skipCost)
+            {
+                return new JsonResult(new
+                {
+                    success = false,
+                    error = "NOT_ENOUGH_COINS"
+                })
+                {
+                    StatusCode = 400
+                };
+            }
+
+            // ✅ Quest skippen
             quest.IsSkipped = true;
-            quest.Status = 1; // stays as ongoing
-            user.Coins -= 75;
+            quest.Status = 1;
 
-            _context.Update(quest);
-            _context.Update(user);
+            // ✅ Coins aftrekken
+            user.Coins -= skipCost;
+
+            // ✅ Coin transaction loggen (BESTAAND MODEL)
+            var transaction = new CoinTransaction
+            {
+                UserId = user.Id,
+                QuestId = quest.Id,
+                Amount = -skipCost,
+                Type = "SKIP_QUEST",
+                Description = $"Skip quest: {quest.QuestName}",
+                CreatedAt = DateTime.UtcNow
+            };
+
+            _context.Quests.Update(quest);
+            _context.Users.Update(user);
+            _context.CoinTransactions.Add(transaction);
+
             await _context.SaveChangesAsync();
 
-            return new JsonResult(new { success = true });
+            return new JsonResult(new
+            {
+                success = true,
+                newBalance = user.Coins
+            });
         }
 
         public class SkipQuestRequest

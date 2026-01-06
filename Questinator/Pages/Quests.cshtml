@@ -1,134 +1,202 @@
 @page
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
 @model Questinator.Pages.QuestsModel
-@{
-    Layout = "_Layout";
-    ViewData["Title"] = "Mijn Quests";
-}
-<h2>@ViewData["Title"]</h2>
 
-<div class="row mt-4">
-    <!-- Completed Quests -->
-    <div class="col-md-6">
+@{
+Layout = "_Layout";
+ViewData["Title"] = "Mijn Quests";
+}
+
+<!-- Anti-forgery token (nodig voor fetch POST) -->
+<form method="post">
+    @Html.AntiForgeryToken()
+</form>
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<div class="row">
+
+    <!-- =========================
+         COMPLETED QUESTS
+         ========================= -->
+    <div class="col-md-6 mb-4">
         <h4>Behaalde Quests</h4>
+
         @if (Model.CompletedQuests.Any())
         {
-            <ul class="list-group retro-list">
-                @foreach (var q in Model.CompletedQuests)
-                {
-                    <li class="list-group-item retro-item">
-                        <strong>@q.QuestName</strong> - @q.Description
-                        <br />
-                        <span style="color: darkred">Reward: @q.Price coins</span>
-                    </li>
-                }
-            </ul>
+        <ul class="retro-list">
+            @foreach (var q in Model.CompletedQuests)
+            {
+            <li class="retro-item">
+                <strong>@q.QuestName</strong><br />
+                <span>@q.Description</span><br />
+                <span style="color: darkred; font-size: 0.7rem">
+                            Reward: @q.Price coins
+                        </span>
+            </li>
+            }
+        </ul>
         }
         else
         {
-            <p>Je hebt nog geen quests voltooid.</p>
+        <p>Je hebt nog geen quests voltooid.</p>
         }
     </div>
 
-    <!-- Ongoing Quests -->
-    <div class="col-md-6">
+    <!-- =========================
+         ONGOING QUESTS
+         ========================= -->
+    <div class="col-md-6 mb-4">
         <h4>Lopende Quests</h4>
+
         @if (Model.OngoingQuests.Any())
         {
-            <ul class="list-group retro-list">
-                @foreach (var q in Model.OngoingQuests)
-                {
-                    <li class="list-group-item retro-item d-flex justify-content-between align-items-start @(q.IsSkipped ? "skipped-quest" : "")">
-                        <div>
-                            <strong>@q.QuestName</strong> - @q.Description
-                            <br />
-                            @if (!string.IsNullOrEmpty(q.Amount))
-                            {
-                                <span>@q.Amount</span><br />
-                            }
-                            @if (q.IsSkipped)
-                            {
-                                <span style="color: white; font-size: 0.6rem">
-                                    @(q.IsSkipped ? "Heeft 75 coins betaald voor te skippen (loser)" : $"Reward: {q.Price} coins")
-                                </span>
-                            }
-                            @if (!q.IsSkipped)
-                            {
-                                <span style="color: black; font-size: 0.6rem">
-                                    @(q.IsSkipped ? "Heeft 75 coins betaald voor te skippen (loser)" : $"Reward: {q.Price} coins")
-                                </span>
-                            }
+        <ul class="retro-list">
+            @foreach (var q in Model.OngoingQuests)
+            {
+            <li class="retro-item d-flex justify-content-between align-items-start
+                        @(q.IsSkipped ? "skipped-quest" : "")">
 
-                            @if (q.IsSkipped)
-                            {
-                                <div class="skipped-text mt-1">SKIPPED</div>
-                            }
-                        </div>
-                        @if (!q.IsSkipped)
-                        {
-                            <button class="btn btn-sm btn-warning skip-btn" data-quest-id="@q.Id">Skip</button>
-                        }
-                    </li>
+                <!-- Quest info -->
+                <div>
+                    <strong>@q.QuestName</strong><br />
+                    <span>@q.Description</span><br />
+
+                    <span style="font-size: 0.6rem">
+                                Reward: @q.Price coins
+                            </span>
+
+                    @if (q.IsSkipped)
+                    {
+                    <div class="skipped-text">SKIPPED</div>
+                    }
+                </div>
+
+                <!-- Skip button -->
+                @if (!q.IsSkipped)
+                {
+                <button class="btn btn-sm btn-warning skip-btn"
+                        data-quest-id="@q.Id">
+                    Skip
+                </button>
                 }
-            </ul>
+            </li>
+            }
+        </ul>
         }
         else
         {
-            <p>Je hebt momenteel geen actieve quests.</p>
+        <p>Je hebt momenteel geen actieve quests.</p>
         }
     </div>
 </div>
 
-<!-- Confirmation Modal -->
-<div class="modal fade" id="skipModal" tabindex="-1" aria-labelledby="skipModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content retro-item p-3">
-      <div class="modal-header">
-        <h5 class="modal-title" id="skipModalLabel">Bevestig Skip</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Weet je zeker dat je deze quest wilt skippen? Dit kost 75 coins.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuleren</button>
-        <button type="button" class="btn btn-danger" id="confirmSkipBtn">Ja, skip</button>
-      </div>
+<!-- =========================
+     SKIP CONFIRMATION MODAL
+     ========================= -->
+<div class="modal fade" id="skipModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content retro-item p-3">
+            <div class="modal-header">
+                <h5 class="modal-title">⚠️ Quest skippen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                Weet je zeker dat je deze quest wilt skippen?<br /><br />
+                <strong>Dit kost 75 coins.</strong>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Annuleren
+                </button>
+                <button class="btn btn-danger" id="confirmSkipBtn">
+                    Ja, skip
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
+<!-- =========================
+     NOT ENOUGH COINS MODAL
+     ========================= -->
+<div class="modal fade" id="noCoinsModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content retro-item p-3">
+            <div class="modal-header">
+                <h5 class="modal-title">❌ Niet genoeg coins</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                Je hebt niet genoeg coins om deze quest te skippen.<br /><br />
+                Wil je coins kopen in de shop?
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Nee
+                </button>
+                <a href="/Store" class="btn btn-danger">
+                    🛒 Naar Store
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =========================
+     STYLES
+     ========================= -->
 <link rel="stylesheet" href="~/css/quest.css" />
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
 @section Scripts {
-    <script>
-        let selectedQuestId = null;
+<script>
+    let selectedQuestId = null;
 
-        document.querySelectorAll('.skip-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                selectedQuestId = btn.getAttribute('data-quest-id');
-                var skipModal = new bootstrap.Modal(document.getElementById('skipModal'));
-                skipModal.show();
-            });
+    const antiforgeryToken =
+        document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+    // Open skip confirmation modal
+    document.querySelectorAll('.skip-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            selectedQuestId = btn.dataset.questId;
+            new bootstrap.Modal(
+                document.getElementById('skipModal')
+            ).show();
+        });
+    });
+
+    // Confirm skip
+    document.getElementById('confirmSkipBtn').addEventListener('click', async () => {
+        const response = await fetch('/Quests?handler=SkipQuest', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': antiforgeryToken
+            },
+            body: JSON.stringify({ questId: selectedQuestId })
         });
 
-        document.getElementById('confirmSkipBtn').addEventListener('click', async () => {
-            if (!selectedQuestId) return;
+        const result = await response.json();
 
-            const response = await fetch('/Quests/SkipQuest', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ questId: selectedQuestId })
-            });
+        if (response.ok && result.success) {
+            location.reload();
+            return;
+        }
 
-            if (response.ok) {
-                location.reload();
-            } else {
-                alert('Er is iets misgegaan bij het skippen van de quest.');
-            }
-        });
-    </script>
+        if (result.error === "NOT_ENOUGH_COINS") {
+            bootstrap.Modal.getInstance(
+                document.getElementById('skipModal')
+            ).hide();
+
+            new bootstrap.Modal(
+                document.getElementById('noCoinsModal')
+            ).show();
+        }
+    });
+</script>
 }
