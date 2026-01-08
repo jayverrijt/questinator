@@ -8,38 +8,36 @@ namespace Questinator.AI.Controllers
 {
     [ApiController]
     [Route("api/ai/quests")]
-    [ApiKey] // 🔐 HIER
+    [ApiKey]
     public class QuestAiController : ControllerBase
     {
         private readonly AiQuestService _ai;
         private readonly ApplicationDbContext _db;
 
-        public QuestAiController(
-            AiQuestService ai,
-            ApplicationDbContext db)
+        public QuestAiController(AiQuestService ai, ApplicationDbContext db)
         {
             _ai = ai;
             _db = db;
         }
 
         [HttpPost("generate")]
-        public async Task<IActionResult> GenerateQuest(
-            [FromBody] AiQuestRequest request)
+        public async Task<IActionResult> GenerateQuest([FromBody] AiQuestRequest request)
         {
             var aiQuest = await _ai.GenerateQuestAsync(
                 request.Event,
-                request.PlayerLevel);
+                request.PlayerLevel
+            );
 
             var quest = new Quest
             {
                 UserId = request.UserId,
-                QuestName = aiQuest.QuestName ?? "Unknown Quest",
-                Description = aiQuest.Description ?? "Complete the objective.",
-                Amount = aiQuest.Amount ?? "1",
-                Price = aiQuest.Price > 0 ? aiQuest.Price : 50,
-                Status = 1
+                QuestName = aiQuest.QuestName,
+                Description = aiQuest.Description,
+                Amount = 1,
+                Price = aiQuest.Price,
+                Status = 1,
+                Progress = 0
             };
-
 
             _db.Quests.Add(quest);
             await _db.SaveChangesAsync();

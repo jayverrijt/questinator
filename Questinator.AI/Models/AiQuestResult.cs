@@ -4,7 +4,9 @@ namespace Questinator.AI.Models
     {
         public string QuestName { get; set; }
         public string Description { get; set; }
-        public string Amount { get; set; }
+        public QuestType Type { get; set; }
+        public int Amount { get; set; }
         public int Price { get; set; }
     }
+
 }

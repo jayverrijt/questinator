@@ -1,25 +1,15 @@
-using System.ComponentModel.DataAnnotations;
+using Questinator.AI.Models;
 
-namespace Questinator.AI.Models
+public class Quest
 {
-    public class Quest
-    {
-        [Key]
-        public int Id { get; set; }
-
-        [Required]
-        public string QuestName { get; set; }
-
-        public string Description { get; set; }
-
-        public int Status { get; set; } // 1 = ongoing, 2 = completed
-
-        public string UserId { get; set; }
-
-        public string? Amount { get; set; }
-
-        public int Price { get; set; }
-
-        public bool IsSkipped { get; set; } = false; // Nieuwe property
-    }
+    public int Id { get; set; }
+    public string QuestName { get; set; }
+    public string Description { get; set; }
+    public int Status { get; set; }
+    public string UserId { get; set; }
+    public QuestType Type { get; set; }   // NEW
+    public int Amount { get; set; }       // now int
+    public int Price { get; set; }
+    public bool IsSkipped { get; set; } = false;
+    public int Progress { get; set; } = 0;
 }
