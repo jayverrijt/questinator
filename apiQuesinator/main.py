@@ -1,77 +1,69 @@
-from fastapi import FastAPI, HTTPException, Header
-from datetime import datetime, timedelta
-import sqlite3
+import pyodbc
 import secrets
 import hashlib
+from datetime import datetime, timedelta, UTC
 
-app = FastAPI()
+# ---------- CONFIG ----------
 
-DB = "game.db"
+CONNECTION_STRING = (
+    "DRIVER={ODBC Driver 18 for SQL Server};"
+    "SERVER=localhost\\SQLEXPRESS;"
+    "DATABASE=MyDatabase;"
+    "Trusted_Connection=yes;"
+    "TrustServerCertificate=yes;"
+)
 
-# ---------- Helpers ----------
+# ---------- HELPERS ----------
 
-def hash_token(token: str) -> str:
-    return hashlib.sha256(token.encode()).hexdigest()
+def get_db():
+    return pyodbc.connect(CONNECTION_STRING)
 
 def generate_token() -> str:
     return secrets.token_urlsafe(32)
 
-def get_db():
-    return sqlite3.connect(DB)
+def hash_token(token: str) -> str:
+    return hashlib.sha256(token.encode()).hexdigest()
 
-# ---------- Create Session ----------
+# ---------- MAIN ----------
 
-@app.post("/session/create")
-def create_session(user_id: int):
-    db = get_db()
-    cur = db.cursor()
+def main():
+    print("=== Game Session Token Generator ===\n")
 
-    # Check user
-    cur.execute("SELECT id FROM users WHERE id = ?", (user_id,))
-    if not cur.fetchone():
-        raise HTTPException(404, "User not found")
-
-    token = generate_token()
-    token_hash = hash_token(token)
-    expires = datetime.utcnow() + timedelta(hours=1)
-
-    cur.execute("""
-        INSERT INTO sessions (user_id, token_hash, expires_at)
-        VALUES (?, ?, ?)
-    """, (user_id, token_hash, expires))
-
-    db.commit()
-    db.close()
-
-    return {
-        "sessionToken": token,
-        "expiresAt": expires.isoformat()
-    }
-
-@app.get("/game/validate")
-def validate_session(authorization: str = Header(None)):
-    if not authorization:
-        raise HTTPException(401, "Missing token")
-
-    token = authorization.replace("Bearer ", "")
-    token_hash = hash_token(token)
+    user_id = input("Voer UserId in (string): ").strip()
+    if not user_id:
+        print("❌ UserId mag niet leeg zijn")
+        return
 
     db = get_db()
     cur = db.cursor()
 
-    cur.execute("""
-        SELECT user_id FROM sessions
-        WHERE token_hash = ?
-        AND expires_at > ?
-    """, (token_hash, datetime.utcnow()))
+    # ✅ JUISTE QUERY
+    cur.execute(
+        "SELECT Id FROM Users WHERE UserId = ?",
+        user_id
+    )
 
     row = cur.fetchone()
+    if not row:
+        print("❌ User niet gevonden in database")
+        db.close()
+        return
+
+    user_pk = row[0]  # dit is de Id (INT)
+
+    # Genereer token
+    token = generate_token()
+    token_hash = hash_token(token)
+    expires_at = datetime.now(UTC) + timedelta(hours=1)
+
     db.close()
 
-    if not row:
-        raise HTTPException(401, "Invalid or expired session")
+    print("\n✅ User gevonden!")
+    print(f"Database Id: {user_pk}")
+    print("\nSession token:")
+    print(token)
+    print("\nVerloopt op (UTC):")
+    print(expires_at.isoformat())
 
-    return {
-        "userId": row[0],
-        "status": "valid"
-    }
+if __name__ == "__main__":
+    main()
