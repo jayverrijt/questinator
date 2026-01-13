@@ -7,8 +7,8 @@ public class Quest
     public string Description { get; set; }
     public int Status { get; set; }
     public string UserId { get; set; }
-    public QuestType Type { get; set; }   // NEW
-    public int Amount { get; set; }       // now int
+    public QuestType Type { get; set; }
+    public int Amount { get; set; }
     public int Price { get; set; }
     public bool IsSkipped { get; set; } = false;
     public int Progress { get; set; } = 0;

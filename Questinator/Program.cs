@@ -4,17 +4,14 @@ using Questinator.Data;
 using Questinator.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient();
 
-//
-// 🔹 Database (MSSQL)
-//
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-//
-// 🔹 Identity met ApplicationUser
-//
+
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
@@ -27,9 +24,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     })
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-//
-// 🔹 Cookie instellingen
-//
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Niet-ingelogde users gaan automatisch naar /Info
@@ -37,26 +32,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Info";
 });
 
-//
-// 🔹 Razor Pages + Authorisatie
-//
-builder.Services.AddRazorPages(options =>
-{
-    // 🔒 Alle pagina’s vereisen login
- //   options.Conventions.AuthorizeFolder("/");
 
- //   // 🔓 Publieke pagina’s
- //   options.Conventions.AllowAnonymousToPage("/Info");
-
- //   // 🔓 Identity (Login/Register/Logout/Manage)
- //   options.Conventions.AllowAnonymousToAreaFolder("Identity", "/");
-});
+builder.Services.AddRazorPages(options => {});
 
 var app = builder.Build();
 
-//
-// 🔹 Middleware pipeline
-//
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");

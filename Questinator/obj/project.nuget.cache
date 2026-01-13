@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ncQbzqoZCWk=",
+  "dgSpecHash": "A2e42POezlc=",
   "success": true,
-  "projectFilePath": "/Users/jayv/Projects/questinator/Questinator/Questinator.csproj",
+  "projectFilePath": "/Users/jayv/Projects/Questinator/Questinator/Questinator.csproj",
   "expectedPackageFiles": [
     "/Users/jayv/.nuget/packages/azure.core/1.38.0/azure.core.1.38.0.nupkg.sha512",
     "/Users/jayv/.nuget/packages/azure.identity/1.11.4/azure.identity.1.11.4.nupkg.sha512",

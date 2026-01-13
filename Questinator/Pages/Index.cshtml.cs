@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using System.Net.Http.Json;
+using System;
 
 namespace Questinator.Pages
 {
@@ -9,10 +11,12 @@ namespace Questinator.Pages
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
+        private readonly HttpClient _httpClient;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IndexModel(ILogger<IndexModel> logger, IHttpClientFactory httpClientFactory)
         {
             _logger = logger;
+            _httpClient = httpClientFactory.CreateClient();
         }
 
         public IActionResult OnGet()
@@ -25,26 +29,37 @@ namespace Questinator.Pages
             return Page();
         }
 
-        // 🎮 START GAME
-        public IActionResult OnPostStartGame()
+        public async Task<IActionResult> OnPostStartGame()
         {
-            // ✅ UserId ophalen uit Identity
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (string.IsNullOrEmpty(userId))
-            {
                 return Unauthorized();
-            }
 
-            // 🔮 HIER KOMT STRAKS DE API VAN JE COLLEGA
-            //
-            // Voorbeeld (API call):
-            // await _gameApi.StartGame(userId);
+            // API call naar jouw Session Token Service
+            var response = await _httpClient.PostAsJsonAsync(
+                "http://192.168.132.124:5076/api/session/create",
+                new { UserId = userId }
+            );
 
-            // Voor nu: redirect met userId (mock)
-            var gameUrl = $"https://example-game-url.com/start?userId={userId}";
+            if (!response.IsSuccessStatusCode)
+                return StatusCode((int)response.StatusCode, "Failed to start session");
+
+            var result = await response.Content.ReadFromJsonAsync<SessionTokenResponse>();
+
+            if (result == null)
+                return StatusCode(500, "No token received from Session API");
+
+            // Unity game URL
+            var gameUrl = $"http://YOUR-UNITY-LAUNCH-URL?session={result.SessionToken}";
 
             return Redirect(gameUrl);
+        }
+
+        public class SessionTokenResponse
+        {
+            public string SessionToken { get; set; }
+            public DateTime ExpiresAt { get; set; }
         }
     }
 }
