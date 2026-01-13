@@ -4,6 +4,7 @@ using Questinator.AI.Models;
 using Questinator.AI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHostedService<SessionCleanupService>();
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -16,7 +17,6 @@ builder.Services.AddIdentityCore<ApplicationUser>()
 builder.Services.AddHttpClient();
 
 
-// ✅ Ollama AI service
 builder.Services.AddHttpClient<AiQuestService>();
 
 var app = builder.Build();
