@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "quest_id": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "quest_type": { "type": "string" },
+    "difficulty": { "type": "integer", "minimum": 1, "maximum": 5 },
+    "reward_coins": { "type": "integer" },
+    "win_condition": { "type": "string" },
+    "lose_condition": { "type": "string" }
+  },
+  "required": [
+    "quest_id",
+    "title",
+    "description",
+    "quest_type",
+    "difficulty",
+    "reward_coins",
+    "win_condition",
+    "lose_condition"
+  ],
+  "additionalProperties": false
+}
