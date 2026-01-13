@@ -1,0 +1,63 @@
+@page
+@model Questinator.Pages.CoinsModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Coins Geschiedenis";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h4>Waar zijn je coins aan uitgegeven?</h4>
+
+        @if (Model.Transactions.Any())
+        {
+            <ul class="list-group retro-list">
+                @foreach (var t in Model.Transactions)
+                {
+                    <li class="list-group-item retro-item">
+                        <strong>@t.Amount coins</strong>
+                        <br />
+
+                        <span>
+                            <b>Type:</b> @t.Type
+                        </span>
+                        <br />
+
+                        <span>
+                            <b>Beschrijving:</b> @t.Description
+                        </span>
+                        <br />
+
+                        @if (t.QuestId != null)
+                        {
+                            <span style="color: darkred">
+                                Quest ID: @t.QuestId
+                            </span>
+                        }
+                        else
+                        {
+                            <span style="color: gray">
+                                Geen actieve quest
+                            </span>
+                        }
+
+                        <br />
+                        <small>
+                            @t.CreatedAt.ToLocalTime().ToString("dd-MM-yyyy HH:mm")
+                        </small>
+                    </li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Je hebt nog geen coins uitgegeven.</p>
+        }
+    </div>
+</div>
+
+<link rel="stylesheet" href="~/css/achievements.css" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">

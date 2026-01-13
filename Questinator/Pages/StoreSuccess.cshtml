@@ -1,0 +1,18 @@
+@page
+@model Questinator.Pages.StoreSuccessModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Betaling geslaagd";
+}
+
+<h2>🎉 Betaling geslaagd!</h2>
+
+<p>
+    Bedankt voor je aankoop.<br />
+    Je betaling is ontvangen en wordt verwerkt.
+</p>
+
+<a asp-page="/Store" class="btn btn-danger mt-3">
+    Terug naar Store
+</a>

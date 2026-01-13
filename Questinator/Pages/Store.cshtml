@@ -1,0 +1,98 @@
+@page
+@model Questinator.Pages.StoreModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Store";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h4>Beschikbare Items</h4>
+
+        @if (Model.Items.Any())
+        {
+            <div class="row">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="col-md-4 mb-3">
+                        <div class="card retro-item h-100"
+                             style="cursor:pointer"
+                             data-bs-toggle="modal"
+                             data-bs-target="#itemModal"
+                             data-id="@item.Id"
+                             data-name="@item.Name"
+                             data-description="@item.LongDescription"
+                             data-price="@item.Price">
+
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Name</h5>
+                                <p>@item.Description</p>
+                                <span style="color: darkred">
+                                    💰 €@(item.Price / 100.0)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <p>De store is momenteel leeg.</p>
+        }
+    </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal fade" id="itemModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content retro-item">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p id="modalDescription"></p>
+                <strong id="modalPrice"></strong>
+            </div>
+
+            <div class="modal-footer">
+                <form method="post">
+                    <input type="hidden" name="itemId" id="modalItemId" />
+                    <button type="submit"
+                            asp-page-handler="Buy"
+                            class="btn btn-danger">
+                        Betalen met Mollie
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('itemModal');
+
+    modal.addEventListener('show.bs.modal', function (event) {
+        const card = event.relatedTarget;
+
+        document.getElementById('modalTitle').innerText =
+            card.getAttribute('data-name');
+
+        document.getElementById('modalDescription').innerText =
+            card.getAttribute('data-description');
+
+        document.getElementById('modalPrice').innerText =
+            "Prijs: €" + (card.getAttribute('data-price') / 100);
+
+        document.getElementById('modalItemId').value =
+            card.getAttribute('data-id');
+    });
+</script>
+
+<link rel="stylesheet" href="~/css/achievements.css" />
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">

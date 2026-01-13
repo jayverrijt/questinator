@@ -1,0 +1,83 @@
+* {
+    font-family: 'Press Start 2P', monospace;
+}
+/* Navbar basis */
+.navbar-custom {
+    background-color: #1b1b1b; /* donkerder dan de standaard */
+    font-family: 'Press Start 2P', monospace; /* pixel font voor retro gevoel */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Navbar links */
+.navbar-custom .nav-link {
+    color: #f1f1f1;
+    transition: all 0.15s ease-in-out;
+    position: relative;
+}
+
+/* Hover effect */
+.navbar-custom .nav-link:hover {
+    color: #28a745;
+    text-shadow: 0 0 5px #28a745;
+}
+
+/* Active page highlighting */
+.navbar-custom .nav-link.active {
+    color: #2575fc;
+    font-weight: bold;
+}
+
+/* Dropdown */
+.navbar-custom .dropdown-menu {
+    background-color: #1b1b1b;
+    border: 1px solid #444;
+}
+
+.navbar-custom .dropdown-item {
+    color: #f1f1f1;
+    transition: all 0.15s ease-in-out;
+}
+
+.navbar-custom .dropdown-item:hover {
+    background-color: #2575fc;
+    color: #fff;
+    text-shadow: none;
+}
+
+/* User initials circle */
+.navbar-initials {
+    background-color: #2575fc;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.9rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+/* DisplayName rechts van de initialen */
+.navbar-custom .dropdown-toggle span {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+    color: #f1f1f1;
+}
+
+/* Navbar button subtle hover */
+.navbar-custom .btn-link {
+    color: #f1f1f1;
+    transition: all 0.15s ease-in-out;
+}
+
+.navbar-custom .btn-link:hover {
+    color: #28a745;
+    text-shadow: 0 0 5px #28a745;
+}
+
+/* Navbar brand */
+.navbar-custom .navbar-brand {
+    font-weight: bold;
+    color: #fff;
+}
