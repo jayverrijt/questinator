@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Questinator.AI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9dc1033cd400b6bce02aea64018b389616fdcdb1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+963092d77fd48ba94649ee569d108c32415e0666")]
 [assembly: System.Reflection.AssemblyProductAttribute("Questinator.AI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Questinator.AI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
