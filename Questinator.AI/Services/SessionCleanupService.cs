@@ -1,4 +1,5 @@
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Threading;
@@ -18,11 +19,28 @@ public class SessionCleanupService : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            using var con = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            await con.OpenAsync(stoppingToken);
+            try
+            {
+                using var con = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+                await con.OpenAsync(stoppingToken);
 
-            var cmd = new SqlCommand("DELETE FROM SessionTokens WHERE ExpiresAt <= SYSUTCDATETIME()", con);
-            await cmd.ExecuteNonQueryAsync(stoppingToken);
+                var cmd = new SqlCommand(
+                    "DELETE FROM SessionTokens WHERE ExpiresAt <= SYSUTCDATETIME()", con);
+
+                await cmd.ExecuteNonQueryAsync(stoppingToken);
+            }
+            catch (SqlException ex)
+            {
+                // tabel bestaat (nog) niet → negeren
+                if (ex.Message.Contains("Invalid object name 'SessionTokens'"))
+                {
+                    // stille fallback → BREAK of CONTINUE mogelijk
+                }
+                else
+                {
+                    throw; // andere DB fouten moeten blijven bestaan
+                }
+            }
 
             await Task.Delay(_interval, stoppingToken);
         }
