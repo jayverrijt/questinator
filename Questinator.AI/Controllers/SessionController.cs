@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using Questinator.AI.Models;
 
 namespace Questinator.AI.Controllers
 {
@@ -84,5 +85,44 @@ namespace Questinator.AI.Controllers
 
             return Ok();
         }
+
+        [HttpPost("handshake")]
+        public async Task<ActionResult<HandshakeResponse>> Handshake([FromBody] HandshakeRequest req)
+        {
+            if (string.IsNullOrWhiteSpace(req.SessionToken))
+                return BadRequest("SessionToken required");
+
+            var hashedBytes = SHA256.HashData(Encoding.UTF8.GetBytes(req.SessionToken));
+            var hashedToken = Convert.ToBase64String(hashedBytes);
+
+            using var con = new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+            await con.OpenAsync();
+            var cmd = new SqlCommand(@"
+        SELECT UserId, ExpiresAt
+        FROM SessionTokens
+        WHERE TokenHash = @h AND ExpiresAt > SYSUTCDATETIME()", con);
+
+            cmd.Parameters.AddWithValue("@h", hashedToken);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+            if (!reader.Read())
+                return Unauthorized();
+
+            var userId = reader.GetString(0);
+            var expiresAt = reader.GetDateTime(1);
+
+            // TODO: hier server-side active quests ophalen
+            var activeQuests = new List<QuestDto>();
+
+            var response = new HandshakeResponse
+            {
+                UserId = userId,
+                ActiveQuests = activeQuests,
+                ExpiresAt = expiresAt
+            };
+
+            return Ok(response);
+        }
+
     }
 }
