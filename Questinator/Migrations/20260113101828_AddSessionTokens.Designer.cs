@@ -12,7 +12,7 @@ using Questinator.Data;
 namespace Questinator.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260113095539_AddSessionTokens")]
+    [Migration("20260113101828_AddSessionTokens")]
     partial class AddSessionTokens
     {
         /// <inheritdoc />
@@ -333,6 +333,37 @@ namespace Questinator.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CoinTransactions");
+                });
+
+            modelBuilder.Entity("Questinator.Models.SessionToken", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("SYSUTCDATETIME()");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TokenHash")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SessionTokens");
                 });
 
             modelBuilder.Entity("Questinator.Models.StoreItem", b =>

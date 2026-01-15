@@ -287,8 +287,11 @@
 /Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Mollie.Api.dll
 /Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Polly.dll
 /Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Polly.Extensions.Http.dll
-/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/staticwebassets/msbuild.Questinator.Microsoft.AspNetCore.StaticWebAssets.props
-/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/staticwebassets/msbuild.build.Questinator.props
-/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Questinator.props
-/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Questinator.props
-/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/staticwebassets.pack.json
+/Users/jayv/Projects/Questinator/Questinator/bin/Debug/net8.0/Questinator.staticwebassets.endpoints.json
+/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/rpswa.dswa.cache.json
+/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/rjimswa.dswa.cache.json
+/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/rjsmrazor.dswa.cache.json
+/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/rjsmcshtml.dswa.cache.json
+/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/staticwebassets.build.json.cache
+/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/staticwebassets.build.endpoints.json
+/Users/jayv/Projects/Questinator/Questinator/obj/Debug/net8.0/swae.build.ex.cache

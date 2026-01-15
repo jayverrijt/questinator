@@ -51,7 +51,7 @@ namespace Questinator.Pages
                 return StatusCode(500, "No token received from Session API");
 
             // Unity game URL
-            var gameUrl = $"http://YOUR-UNITY-LAUNCH-URL?session={result.SessionToken}";
+            var gameUrl = $"questinator://play?session_token={result.SessionToken}";
 
             return Redirect(gameUrl);
         }
