@@ -11,6 +11,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddHttpClient("Questinator", client =>
+{
+    client.DefaultRequestHeaders.Add("X-API-KEY", "WURST_WURST_WURST_WURST_WURST");
+});
+
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     {
